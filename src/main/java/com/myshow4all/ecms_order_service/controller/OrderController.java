@@ -41,7 +41,7 @@ public class OrderController {
     }
 
 
-    @PostMapping("/{orderId}/status")
+    @PatchMapping("/{orderId}/status")
     public ResponseEntity<Order> updateOrderStatus(@PathVariable Long orderId,
                                                    @RequestParam String status)
     {
