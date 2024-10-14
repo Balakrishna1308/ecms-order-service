@@ -1,6 +1,7 @@
 package com.myshow4all.ecms_order_service.service;
 
 import com.myshow4all.ecms_order_service.entity.Order;
+import com.myshow4all.ecms_order_service.entity.OrderItem;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,5 +13,6 @@ public interface OrderService {
     List<Order> getOrdersByUserId(Long userId);
     Order updateOrderStatus(Long orderId, String status);
     void deleteOrder(Long orderId);
+    Order createOrderWithItems(Order order, List<OrderItem> orderItems);
 
 }

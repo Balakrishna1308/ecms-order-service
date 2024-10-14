@@ -1,7 +1,9 @@
 package com.myshow4all.ecms_order_service.service.impl;
 
 import com.myshow4all.ecms_order_service.entity.Order;
+import com.myshow4all.ecms_order_service.entity.OrderItem;
 import com.myshow4all.ecms_order_service.exception.OrderNotFoundException;
+import com.myshow4all.ecms_order_service.repository.OrderItemRepository;
 import com.myshow4all.ecms_order_service.repository.OrderRepository;
 import com.myshow4all.ecms_order_service.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public Order createOrder(Order order) {
@@ -49,5 +54,22 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrder(Long orderId) {
         orderRepository.deleteById(orderId);
+    }
+
+
+    @Override
+    public Order createOrderWithItems(Order order, List<OrderItem> orderItems) {
+        Order savedOrder = orderRepository.save(order);
+
+        for (OrderItem item:orderItems)
+        {
+            item.setOrder(order);
+        }
+
+        List<OrderItem> savedOrderItems = orderItemRepository.saveAll(orderItems);
+
+        savedOrder.setOrderItems(savedOrderItems);
+
+        return savedOrder;
     }
 }

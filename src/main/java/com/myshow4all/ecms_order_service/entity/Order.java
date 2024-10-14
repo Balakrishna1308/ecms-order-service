@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -20,14 +21,41 @@ public class Order {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "product_name", nullable = false)
+
+
+
+
+//    @Column(name = "product_name", nullable = false)
+//    private String productName;
+    @Column(name = "product_name")
     private String productName;
 
-    @Column(name = "quantity", nullable = false)
+
+
+
+
+//    @Column(name = "quantity", nullable = false)
+//    private Integer quantity;
+
+    @Column(name = "quantity")
     private Integer quantity;
 
-    @Column(name = "price", nullable = false)
+
+
+
+//    @Column(name = "price", nullable = false)
+//    private Double price;
+    @Column(name = "price")
     private Double price;
+
+
+
+
+
+
+
+
+
 
     @Column(name = "status", nullable = false)
     private String status;
@@ -35,4 +63,7 @@ public class Order {
     @Column(name = "order_date")
     @CreationTimestamp
     private LocalDateTime orderDate;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems;
 }

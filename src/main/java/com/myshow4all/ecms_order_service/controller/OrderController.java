@@ -1,6 +1,8 @@
 package com.myshow4all.ecms_order_service.controller;
 
+import com.myshow4all.ecms_order_service.dto.CreateOrderRequest;
 import com.myshow4all.ecms_order_service.entity.Order;
+import com.myshow4all.ecms_order_service.entity.OrderItem;
 import com.myshow4all.ecms_order_service.exception.OrderNotFoundException;
 import com.myshow4all.ecms_order_service.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,30 @@ public class OrderController {
         Order createdOrder = orderService.createOrder(order);
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
     }
+
+
+
+
+
+//    @PostMapping("/create-with-items")
+//    public ResponseEntity<Order> createOrderWithItems(@RequestBody Order order,
+//                                                      @RequestBody List<OrderItem> orderItems)
+//    {
+//        Order createdOrder = orderService.createOrderWithItems(order, orderItems);
+//        return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+//    }
+
+
+
+
+    @PostMapping("/create-with-items")
+    public ResponseEntity<Order> createOrderWithItems(@RequestBody CreateOrderRequest request)
+    {
+        Order createdOrder = orderService.createOrderWithItems(request.getOrder(), request.getItems());
+        return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+    }
+
+
 
     @GetMapping("/{orderId}")
     public ResponseEntity<Order> fetchOrderByOrderId(@PathVariable Long orderId)
